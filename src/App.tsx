@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Observer from './components/Observer/Observer';
+import Observer from './components/Observer';
 
 export default function App() {
   const [items, setItems] = useState<number[]>([]);
