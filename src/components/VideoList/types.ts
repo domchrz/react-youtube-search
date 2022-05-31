@@ -1,4 +1,4 @@
-import { Video } from '../Video/types';
+import { Video } from '../VideoOverview/types';
 
 export interface Videos {
   nextPageToken: string;

@@ -1,14 +1,13 @@
-import Video from '../Video/Video1';
+import { Video } from '../VideoOverview/types';
+import VideoOverview from '../VideoOverview';
+import { StyledUl } from './styles';
 
-export default function VideoList({ items }: { items: any[] }) {
+export default function VideoList({ items }: { items: Video[] }) {
   return (
-    <>
-      <h2>VideoList</h2>
-      {items.map(
-        (item: { snippet: { title: string; description: string }; id: { videoId: string } }) => (
-          <Video key={item.id.videoId} item={item} />
-        )
-      )}
-    </>
+    <StyledUl>
+      {items.map((item: Video) => (
+        <VideoOverview key={item.id.videoId} item={item} />
+      ))}
+    </StyledUl>
   );
 }

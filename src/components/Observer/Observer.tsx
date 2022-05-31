@@ -14,7 +14,7 @@ export default function Observer({callback}: { callback: Function}) {
           callback();
         }
       },
-      { threshold: 0.9 }
+      { threshold: 0.3 }
     );
     observer.current.observe(element)
 

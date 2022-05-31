@@ -1,5 +1,6 @@
 {
   "name": "youtube-videos-search",
+  "homepage": "https://domchrz.github.io/react-youtube-search/",
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",

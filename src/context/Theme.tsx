@@ -1,21 +1,19 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { WithChildren } from '../types';
 
 const theme = {
   colors: {
-    main: '#edf6f9',
-    mainContrast: '#072531',
-    secondary: '#49c8e2',
-    secondaryContrast: '#CAF0F8',
-    action: '#f09819',
+    font: '#edf6f9',
+    main: '#373737',
+    secondary: '#202020',
+    background: '#181818',
+    action: '#f0af19',
     warning: '#dc143c;',
   },
   fonts: {
-    sansSerif: `'Exo 2', sans-serif`,
-    serif: `'Ms Madi', cursive`,
-    mono: `Share Tech Mono, monospace`,
-    materialIcon: `
+    sansSerif: `'Roboto', sans-serif`,
+    serif: `'Covered By Your Grace', cursive;`,
+    icon: `
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,13 +21,9 @@ const theme = {
     font-family: 'Material Icons';
     `,
   },
-  effects: {
-    borderRadius: '0.35em',
-    boxShadow: '.07rem .07rem .5rem hsla(0, 0%, 0%, .18)',
-  },
 };
 
-const Theme: React.FC<WithChildren> = ({ children }) => {
+const Theme: React.FC<{ children: ReactNode }> = ({ children }) => {
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
 
