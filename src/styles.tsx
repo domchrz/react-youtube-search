@@ -5,11 +5,18 @@ const StyledGlobal = createGlobalStyle`
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}  
+}
+
+& html {
+  scroll-behavior: smooth;
+}
 
 & body {
+  position: relative;
   font-family: ${({ theme }) => theme.fonts.sansSerif};
-  background-color: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.font};
+  background-color: ${({ theme }) => theme.colors.background};
+  min-height: 100vh;
 }
 
 & #root{
@@ -19,32 +26,41 @@ const StyledGlobal = createGlobalStyle`
   flex-direction: column;
 }
 
-& a {
-  display: inline-block;
-  font-size: 1.4rem;
-  color: ${({ theme }) => theme.colors.secondaryContrast};
-  padding: 1.5rem;
-  transition: color .3s;
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.mainContrast};
-  }
+& ul {
+  list-style: none;
 }
 `;
 
-export const StyledContainer = styled.div`
+export const StyledMain = styled.main`
   position: relative;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  width: fit-content;
-  background-color: cyan;
+  width: 100%;
+  max-width: 100rem;
+  margin-top: 1rem;
   padding: 1rem;
-  margin: 8.5rem 0 2rem;
-  background-color: ${({ theme }) => theme.colors.secondaryContrast};
-  border-radius: ${({ theme }) => theme.effects.borderRadius};
-  box-shadow: ${({ theme }) => theme.effects.boxShadow};
+`;
+
+export const StyledHeader = styled.header`
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.secondary};
+  z-index: 100;
+`;
+
+export const StyledHeadline = styled.h1`
+  font-weight: normal;
+  font-family: ${({ theme }) => theme.fonts.serif};
+  color: ${({ theme }) => theme.colors.warning};
+  font-size: 2.5rem;
 `;
 
 export default StyledGlobal;

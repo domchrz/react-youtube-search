@@ -6,6 +6,5 @@ export const StyledDiv = styled.div`
   z-index: -1;
   pointer-events: none;
   width: 100%;
-  height: 300px;
-  background: red;
+  height: 20vh;
 `;

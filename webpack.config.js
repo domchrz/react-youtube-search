@@ -29,7 +29,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'credit-card',
+      title: 'SearchTube',
       filename: 'index.html',
       template: path.resolve(__dirname, 'src/template.html'),
     }),
