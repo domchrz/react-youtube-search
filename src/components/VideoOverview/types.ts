@@ -5,7 +5,6 @@ export interface Video {
   snippet: {
     publishedAt: string;
     title: string;
-    description: string;
     channelTitle: string;
     thumbnails: {
       default: { url: string };

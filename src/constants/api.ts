@@ -1,4 +1,4 @@
-export const API_KEY = 'AIzaSyBhclTVFGhkUittF_Rqd3j-Yzip9WsjxWU';
+export const API_KEY = 'AIzaSyDvzFpuPEZdhASv7eqn7MxGGgoEb33J1Ds';
 
 export const BASE_EMBED_URL = 'https://www.youtube.com/embed/';
 
