@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, FC } from 'react';
 import { StyledDiv } from './styles';
 
-export default function Observer({callback}: { callback: Function}) {
-  const [element, setElement] = useState<HTMLDivElement>()
+const Observer: FC<{callback: Function}> = ({callback}) => {
+  const element = useRef<HTMLDivElement>(null);
   const observer = useRef<IntersectionObserver>();
 
   useEffect(() => {
-    if (!element) return
+    if (!element.current) return
 
     observer.current = new IntersectionObserver(
       entries => {
@@ -16,13 +16,15 @@ export default function Observer({callback}: { callback: Function}) {
       },
       { threshold: 0.3 }
     );
-    observer.current.observe(element)
+    observer.current.observe(element.current)
 
     return () => observer.current?.disconnect();
-  }, [element, callback]);
+  }, [callback]);
 
 
   return (
-    <StyledDiv ref={(node: HTMLDivElement) => setElement(node)}></StyledDiv>
+    <StyledDiv ref={element}></StyledDiv>
   )
 }
+
+export default Observer;
