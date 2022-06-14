@@ -14,7 +14,7 @@ const InfiniteScrollObserver: FC<{ fetchNewVideos: Function }> = ({ fetchNewVide
           fetchNewVideos();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.1 }
     );
     observer.current.observe(element.current);
 

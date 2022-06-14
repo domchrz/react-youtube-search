@@ -26,8 +26,6 @@ export default function App() {
   const error = useSelector<RootState, string>(state => state.error);
   const dispatch = useDispatch<ThunkDispatch<RootState, any, AnyAction>>();
 
-  console.log(videos.items);
-
   useEffect(() => {
     if (query.length === 0) return;
     dispatch(getVideoPage({ query, isNewQuery: true }));
