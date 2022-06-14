@@ -1,7 +1,7 @@
-import { Videos } from '../components/VideoList/types';
+import { VideoPageData } from './slices/videos/types';
 
-export interface StoreState {
-  videos: Videos;
+export interface RootState {
+  isLoading: boolean;
   error: string;
-  loading: boolean;
+  videos: VideoPageData
 }

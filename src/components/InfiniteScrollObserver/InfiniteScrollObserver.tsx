@@ -1,30 +1,27 @@
 import { useEffect, useRef, FC } from 'react';
 import { StyledDiv } from './styles';
 
-const Observer: FC<{callback: Function}> = ({callback}) => {
+const InfiniteScrollObserver: FC<{ fetchNewVideos: Function }> = ({ fetchNewVideos }) => {
   const element = useRef<HTMLDivElement>(null);
   const observer = useRef<IntersectionObserver>();
 
   useEffect(() => {
-    if (!element.current) return
+    if (!element.current) return;
 
     observer.current = new IntersectionObserver(
       entries => {
         if (entries[0].isIntersecting) {
-          callback();
+          fetchNewVideos();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.2 }
     );
-    observer.current.observe(element.current)
+    observer.current.observe(element.current);
 
     return () => observer.current?.disconnect();
-  }, [callback]);
+  }, [fetchNewVideos]);
 
+  return <StyledDiv ref={element}></StyledDiv>;
+};
 
-  return (
-    <StyledDiv ref={element}></StyledDiv>
-  )
-}
-
-export default Observer;
+export default InfiniteScrollObserver;

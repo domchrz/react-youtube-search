@@ -17,9 +17,9 @@ const getMonths = (milliseconds: number): number =>
 const getYears = (milliseconds: number): number =>
   +(milliseconds / 12 / 30 / 24 / 60 / 60 / 1000).toFixed(0);
 
-export const getDateDiff = (date: string): number => +new Date() - +new Date(date);
+const getDateDiff = (date: string): number => +new Date() - +new Date(date);
 
-export const getVideoDate = (milliseconds: number): VideoDate => {
+const getVideoDate = (milliseconds: number): VideoDate => {
   switch (true) {
     case !!getYears(milliseconds):
       return { time: getYears(milliseconds), unit: 'years' };
@@ -35,3 +35,5 @@ export const getVideoDate = (milliseconds: number): VideoDate => {
       return { time: getSeconds(milliseconds), unit: 'seconds' };
   }
 };
+
+export const getPublishedTime = (publishedAt: string) => getVideoDate(getDateDiff(publishedAt));

@@ -1,10 +1,7 @@
-import { ChangeEventHandler, Dispatch, FormEventHandler, SetStateAction, useState } from 'react';
-import thr from '../../helpers/throttle';
+import { ChangeEventHandler, FC, FormEventHandler, useState } from 'react';
 import { StyledForm, StyledIconButton, StyledInput } from './styles';
 
-const throttle = thr();
-
-export default function SearchBar({ setQuery }: { setQuery: Dispatch<SetStateAction<string>> }) {
+const SearchBar: FC<{ handleSetQuery: Function }> = ({ handleSetQuery }) => {
   const [value, setValue] = useState<string>('');
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = e => setValue(e.target.value);
@@ -13,7 +10,7 @@ export default function SearchBar({ setQuery }: { setQuery: Dispatch<SetStateAct
     e.preventDefault();
     const query = value.trim();
     if (query.length === 0) return;
-    throttle(() => setQuery(query), 500);
+    handleSetQuery(query);
   };
 
   return (
@@ -22,4 +19,6 @@ export default function SearchBar({ setQuery }: { setQuery: Dispatch<SetStateAct
       <StyledIconButton type="submit">search</StyledIconButton>
     </StyledForm>
   );
-}
+};
+
+export default SearchBar;

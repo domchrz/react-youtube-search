@@ -5,7 +5,7 @@ import {
   StyledPlayIcon,
 } from './styles';
 
-export default function Overview() {
+export default function PlaceholderOverview() {
   return (
     <StyledContainer>
       <StyledContentPlaceholder>

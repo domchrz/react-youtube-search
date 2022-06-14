@@ -1,4 +1,4 @@
-export interface Video {
+export interface VideoData {
   id: {
     videoId: string;
   };
@@ -12,4 +12,15 @@ export interface Video {
       high: { url: string };
     };
   };
+}
+
+export interface VideoPageData {
+  nextPageToken: string;
+  items: VideoData[];
+  isNewQuery: boolean;
+}
+
+export interface Videos<Items = VideoData> {
+  nextPageToken: string;
+  items: Items[];
 }

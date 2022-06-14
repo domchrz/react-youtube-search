@@ -2,40 +2,59 @@ import { AnyAction } from '@reduxjs/toolkit';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { SearchBar, VideoList, Placeholder, Observer, ErrorMessage} from './components'
-import { Videos } from './components/VideoList/types';
-import { getVideos } from './store/actions/thunk';
-import { StoreState } from './store/types';
+import {
+  SearchBar,
+  VideoList,
+  Placeholder,
+  InfiniteScrollObserver,
+  ErrorMessage,
+} from './components';
+import { RootState } from './store/types';
 import { StyledMain, StyledHeader, StyledHeadline } from './styles';
 import thr from './helpers/throttle';
+import { Videos } from './store/slices/videos/types';
+import Video from './ViewModels/video';
+import videosSelector from './store/selectors/videos';
+import { getVideoPage } from './store/actions/asyncThunk';
 
 const throttle = thr();
 
 export default function App() {
   const [query, setQuery] = useState<string>('');
-  const videos = useSelector<StoreState, Videos>(state => state.videos);
-  const isLoading = useSelector<StoreState, boolean>(state => state.loading);
-  const error = useSelector<StoreState, string>(state => state.error);
-  const dispatch = useDispatch<ThunkDispatch<StoreState, any, AnyAction>>();
+  const videos = useSelector<RootState, Videos<Video>>(videosSelector);
+  const isLoading = useSelector<RootState, boolean>(state => state.isLoading);
+  const error = useSelector<RootState, string>(state => state.error);
+  const dispatch = useDispatch<ThunkDispatch<RootState, any, AnyAction>>();
+
+  console.log(videos.items);
 
   useEffect(() => {
     if (query.length === 0) return;
-    dispatch(getVideos(query));
+    dispatch(getVideoPage({ query, isNewQuery: true }));
     window.scrollTo(0, 0);
   }, [query]);
 
-  const handleScroll = () => !(!!error) && throttle(() =>  dispatch(getVideos(query, videos.nextPageToken)), 500);
+  const handleScroll = () =>
+    !!!error &&
+    query.length &&
+    throttle(
+      () =>
+        dispatch(getVideoPage({ query, isNewQuery: false, nextPageToken: videos.nextPageToken })),
+      500
+    );
+
+  const handleSetQuery = (searchQuery: string) => throttle(() => setQuery(searchQuery), 500);
 
   return (
     <>
       <StyledHeader>
-        <SearchBar setQuery={setQuery} />
+        <SearchBar handleSetQuery={handleSetQuery} />
         <StyledHeadline>SearchTube</StyledHeadline>
       </StyledHeader>
       <StyledMain>
         {!!videos.items.length && <VideoList items={videos.items} />}
         {isLoading && <Placeholder />}
-        <Observer callback={handleScroll} />
+        <InfiniteScrollObserver fetchNewVideos={handleScroll} />
       </StyledMain>
       {!!error && <ErrorMessage error={error} />}
     </>

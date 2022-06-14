@@ -1,14 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { MAX_RESULTS } from '../../constants/api';
-import Overview from '../Overview';
+import PlaceholderOverview from '../PlaceholderOverview';
 import { StyledUl } from './styles';
 
 export default function Placeholder() {
-  const [items, setItems] = useState<JSX.Element[]>([]);
+  const [items] = useState<JSX.Element[]>(
+    Array.from({ length: MAX_RESULTS }, () => <PlaceholderOverview />)
+  );
 
-  useEffect(() => {
-    setItems(Array.from({ length: MAX_RESULTS }, () => <Overview />));
-  }, [MAX_RESULTS]);
-  
   return <StyledUl>{!!items.length && items.map(item => item)}</StyledUl>;
 }

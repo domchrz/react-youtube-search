@@ -1,37 +1,37 @@
-import { useEffect, useState } from 'react';
-import { getDateDiff, getVideoDate, VideoDate } from '../../helpers/date';
-import { clipTitle } from '../../helpers/titles';
+import { FC, useState } from 'react';
+import Video from '../../ViewModels/video';
 import VideoEmbed from '../VideoEmbed';
-import { StyledContainer, StyledContent, StyledImg, StyledMeta, StyledPlayIcon, StyledTitle } from './styles';
-import { Video } from './types';
+import {
+  StyledContainer,
+  StyledContent,
+  StyledImg,
+  StyledMeta,
+  StyledPlayIcon,
+  StyledTitle,
+} from './styles';
 
-export default function VideoOverview({ item }: { item: Video }) {
-  const [publishedAgo, setPublishedAgo] = useState<VideoDate>();
-  const [loadVideo, setLoadVideo] = useState<boolean>(false);
-
-  useEffect(() => {
-    setPublishedAgo(getVideoDate(getDateDiff(item.snippet.publishedAt)));
-  }, []);
+const VideoOverview: FC<{ item: Video }> = ({ item }) => {
+  const [showVideo, setShowVideo] = useState<boolean>(false);
 
   return (
     <StyledContainer>
       <StyledContent>
-        {loadVideo ? (
-          <VideoEmbed videoId={item.id.videoId} />
+        {showVideo ? (
+          <VideoEmbed videoId={item.youTubeId} />
         ) : (
           <>
-            <StyledImg src={item.snippet.thumbnails.high.url} onClick={() => setLoadVideo(true)} />
-            <StyledPlayIcon>
-              smart_display
-            </StyledPlayIcon>
+            <StyledImg src={item.thumbnailUrl.high} onClick={() => setShowVideo(true)} />
+            <StyledPlayIcon>smart_display</StyledPlayIcon>
           </>
         )}
       </StyledContent>
-      <StyledTitle>{clipTitle(item.snippet.title, 60)}</StyledTitle>
+      <StyledTitle>{item.title}</StyledTitle>
       <StyledMeta>
-        <p>{clipTitle(item.snippet.channelTitle)}</p>
-        {publishedAgo && <p>published {`${publishedAgo.time} ${publishedAgo.unit}`} ago</p>}
+        <p>{item.channelTitle}</p>
+        {item.published && <p>published {item.published} ago</p>}
       </StyledMeta>
     </StyledContainer>
   );
-}
+};
+
+export default VideoOverview;
