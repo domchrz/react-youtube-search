@@ -36,7 +36,6 @@ export default function App() {
 
   const handleScroll = () =>
     !!!error &&
-    query.length &&
     throttle(
       () =>
         dispatch(getVideoPage({ query, isNewQuery: false, nextPageToken: videos.nextPageToken })),
