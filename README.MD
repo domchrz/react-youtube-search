@@ -23,3 +23,4 @@ components
 constants
 * apikey, embed url and base fetch url
 * MAX_RESULTS - const used throughout the app to determine how many results per page should be displayed, used for number of items in Placeholder as well
+
